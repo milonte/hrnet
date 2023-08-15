@@ -3,14 +3,33 @@ import './App.css';
 import DateTimePicker from '@milonte/datetimepicker/dist'
 import { Link } from 'react-router-dom';
 import { states } from './datas/states';
+import { useDispatch, useSelector } from 'react-redux';
+import { addEmployee } from './redux/employeeSlice';
+import { AppDispatch, RootState } from './redux/store';
+import EmployeeInterface from './interfaces/EmployeeInterface';
+
 function App() {
+
+  const employees: { employees: EmployeeInterface[] } = useSelector((state: RootState) => state.employee)
+  const dispatch: AppDispatch = useDispatch()
 
   function saveEmployee(): void {
     const formDatas = new FormData(
       document.getElementById('create-employee') as HTMLFormElement
     )
 
-    // set values to redux
+    dispatch(addEmployee({
+      firstName: formDatas.get('first-name'),
+      lastName: formDatas.get('last-name'),
+      dateOfBirth: formDatas.get('date-of-birth'),
+      startDate: formDatas.get('start-date'),
+      city: formDatas.get('city'),
+      state: formDatas.get('state'),
+      zipCode: formDatas.get('zip-code'),
+      department: formDatas.get('department')
+    }))
+
+    // modal
   }
 
   return (

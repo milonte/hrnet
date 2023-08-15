@@ -5,9 +5,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css';
+import { Provider } from 'react-redux'
 import App from './App';
 import Employees from './Employees';
 import reportWebVitals from './reportWebVitals';
+import { store } from './redux/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -25,7 +27,9 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
