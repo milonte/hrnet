@@ -24,15 +24,24 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+input {
+  border-width: 1px;
+}
+
+input.valid {
+  border-color: green;
+}
+
+input.novalid {
+  border-color: rgb(201, 0, 0);
 }
