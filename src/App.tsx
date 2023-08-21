@@ -1,13 +1,12 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, { useState } from 'react';
 import DateTimePicker from '@milonte/datetimepicker/dist'
 import { Link } from 'react-router-dom';
 import { states } from './datas/states';
 import { useDispatch } from 'react-redux';
 import { addEmployee } from './redux/employeeSlice';
 import { AppDispatch } from './redux/store';
-import { Button, Modal } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { Box, Modal, Typography } from '@mui/material';
 
 function App() {
 
@@ -127,17 +126,32 @@ function App() {
             <option>Legal</option>
           </select>
 
-          <Button className='save-btn' onClick={() => { saveEmployee() }}>Save</Button>
+          <button className='save-btn' onClick={() => { saveEmployee() }}>Save</button>
         </form>
-
       </div>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Employee created !</Modal.Title>
-        </Modal.Header>
+      <Modal
+        open={show}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+      >
+        <Box sx={{
+          position: 'absolute' as 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          border: '2px solid #000',
+          boxShadow: 24,
+          p: 4,
+        }}>
+          <Typography id="modal-modal-title">
+            Employee Created !
+          </Typography>
+        </Box>
       </Modal>
-    </div>
+    </div >
 
   );
 }
