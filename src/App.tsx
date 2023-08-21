@@ -1,5 +1,4 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
 import DateTimePicker from '@milonte/datetimepicker/dist'
 import { Link } from 'react-router-dom';
 import { states } from './datas/states';
@@ -7,11 +6,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addEmployee } from './redux/employeeSlice';
 import { AppDispatch, RootState } from './redux/store';
 import EmployeeInterface from './interfaces/EmployeeInterface';
+import { Button, Dropdown, Modal } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
 
-  const employees: { employees: EmployeeInterface[] } = useSelector((state: RootState) => state.employee)
+  //const employees: { employees: EmployeeInterface[] } = useSelector((state: RootState) => state.employee)
   const dispatch: AppDispatch = useDispatch()
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
 
   function saveEmployee(): void {
@@ -35,7 +42,7 @@ function App() {
         department: formDatas.get('department')
       }))
 
-      // modal
+      setShow(true)
     }
 
   }
@@ -118,11 +125,17 @@ function App() {
             <option>Human Resources</option>
             <option>Legal</option>
           </select>
+
+          <Button className='save-btn' onClick={() => { saveEmployee() }}>Save</Button>
         </form>
 
-        <button onClick={() => { saveEmployee() }}>Save</button>
       </div>
-      <div id="confirmation" className="modal">Employee Created!</div>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Employee created !</Modal.Title>
+        </Modal.Header>
+      </Modal>
     </div>
 
   );
