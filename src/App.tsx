@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import DateTimePicker from '@milonte/datetimepicker/dist'
 import { Link } from 'react-router-dom';
 import { states } from './datas/states';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addEmployee } from './redux/employeeSlice';
-import { AppDispatch, RootState } from './redux/store';
-import EmployeeInterface from './interfaces/EmployeeInterface';
-import { Button, Dropdown, Modal } from 'react-bootstrap';
+import { AppDispatch } from './redux/store';
+import { Button, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
 
-  //const employees: { employees: EmployeeInterface[] } = useSelector((state: RootState) => state.employee)
   const dispatch: AppDispatch = useDispatch()
 
   const [show, setShow] = useState(false);
@@ -22,6 +20,7 @@ function App() {
 
 
   function saveEmployee(): void {
+    const randomId: string = (Math.random() + 1).toString(36).substring(2);
     const form = document.getElementById('create-employee') as HTMLFormElement
     const formDatas = new FormData(form)
 
@@ -31,6 +30,7 @@ function App() {
 
     if (isValid(formChildrens)) {
       dispatch(addEmployee({
+        id: randomId,
         firstName: formDatas.get('first-name'),
         lastName: formDatas.get('last-name'),
         dateOfBirth: formDatas.get('date-of-birth'),
@@ -41,7 +41,7 @@ function App() {
         zipCode: formDatas.get('zip-code'),
         department: formDatas.get('department')
       }))
-
+      form.reset()
       setShow(true)
     }
 
@@ -94,6 +94,7 @@ function App() {
           <DateTimePicker datePicker
             inputNodes={{
               id: 'start-date',
+              name: 'start-date',
               form: 'create-employee',
               required: true
             }} />

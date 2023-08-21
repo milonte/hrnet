@@ -1,13 +1,62 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import DateTimePicker from '@milonte/datetimepicker/dist'
+import './Employee.css';
+import { DataGrid, GridColDef, GridComparatorFn } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
+import EmployeeInterface from './interfaces/EmployeeInterface';
+import { useSelector } from 'react-redux';
+import { RootState } from './redux/store';
+
+
 function Employees() {
+  const employees: EmployeeInterface[] = useSelector((state: RootState) => state.employee)
+
+  const dateComparator: GridComparatorFn<Date> = (v1, v2) =>
+    Date.parse(v1.toUTCString()) - Date.parse(v2.toUTCString());
+
+  const columns: GridColDef[] = [
+    { field: 'firstName', headerName: 'First name', width: 150 },
+    { field: 'lastName', headerName: 'Last name', width: 150 },
+    {
+      field: 'dateOfBirth', headerName: 'Date Of Birth', width: 100,
+      type: 'date',
+      valueGetter: (params) => new Date(params.row.dateOfBirth),
+      sortComparator: dateComparator,
+      valueFormatter: (param) => param.value.toLocaleString().split(' ')[0],
+    },
+    {
+      field: 'startDate', headerName: 'Start Date',
+      type: 'date',
+      valueGetter: (params) => new Date(params.row.startDate),
+      sortComparator: dateComparator,
+      valueFormatter: (param) => param.value.toLocaleString().split(' ')[0],
+    },
+    { field: 'city', headerName: 'City' },
+    { field: 'state', headerName: 'state' },
+    { field: 'zipCode', headerName: 'Zip Code', width: 100 },
+    { field: 'department', headerName: 'Department' },
+  ];
+
   return (
-    <div id="employee-div" className="container">
+    <div className="container">
       <h1>Current Employees</h1>
-      <table id="employee-table" className="display"></table>
+      <div id="employee-table">
+        <DataGrid
+          rows={employees}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+            sorting: {
+              sortModel: [{ field: 'startDate', sort: 'desc' }],
+            }
+          }}
+          disableColumnSelector
+          disableVirtualization
+          density='compact'
+          pageSizeOptions={[5, 10, 25, 50, 100]}
+        />
+      </div>
       <Link to={'/'}>Home</Link>
     </div>
 

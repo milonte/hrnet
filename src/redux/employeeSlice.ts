@@ -3,14 +3,13 @@ import EmployeeInterface from '../interfaces/EmployeeInterface'
 
 export const employeeSlice = createSlice({
     name: 'employee',
-    initialState: {
-        employees: []
-    },
+    initialState: [],
     reducers: {
         addEmployee: (
-            state: { employees: EmployeeInterface[] },
+            state: EmployeeInterface[],
             actions: { payload: any, type: string }) => {
             const employee: EmployeeInterface = {
+                id: actions.payload.id,
                 firstName: actions.payload.firstName,
                 lastName: actions.payload.lastName,
                 dateOfBirth: actions.payload.dateOfBirth,
@@ -21,7 +20,7 @@ export const employeeSlice = createSlice({
                 zipCode: actions.payload.zipCode,
                 department: actions.payload.department
             }
-            state.employees.push(employee)
+            state.push(employee)
         }
     },
 })
