@@ -79,7 +79,7 @@ function App() {
           <input type="text" id="last-name" required minLength={2} name='last-name' form='create-employee' />
 
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <DateTimePicker datePicker
+          <DateTimePicker
             maxDate={new Date()}
             inputNodes={{
               id: 'date-of-birth',
@@ -90,7 +90,7 @@ function App() {
           />
 
           <label htmlFor="start-date">Start Date</label>
-          <DateTimePicker datePicker
+          <DateTimePicker
             inputNodes={{
               id: 'start-date',
               name: 'start-date',
