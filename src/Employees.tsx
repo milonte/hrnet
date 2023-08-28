@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import EmployeeInterface from './interfaces/EmployeeInterface';
 import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
+import { mockedEmployees } from './_mocks/mockedEmployees';
 
 
 function Employees() {
@@ -14,8 +15,8 @@ function Employees() {
     Date.parse(v1.toUTCString()) - Date.parse(v2.toUTCString());
 
   const columns: GridColDef[] = [
-    { field: 'firstName', headerName: 'First name', width: 150 },
-    { field: 'lastName', headerName: 'Last name', width: 150 },
+    { field: 'firstName', headerName: 'First name', width: 120 },
+    { field: 'lastName', headerName: 'Last name', width: 120 },
     {
       field: 'dateOfBirth', headerName: 'Date Of Birth', width: 100,
       type: 'date',
@@ -24,14 +25,14 @@ function Employees() {
       valueFormatter: (param) => param.value.toLocaleString().split(' ')[0],
     },
     {
-      field: 'startDate', headerName: 'Start Date',
+      field: 'startDate', headerName: 'Start Date', width: 100,
       type: 'date',
       valueGetter: (params) => new Date(params.row.startDate),
       sortComparator: dateComparator,
       valueFormatter: (param) => param.value.toLocaleString().split(' ')[0],
     },
     { field: 'city', headerName: 'City' },
-    { field: 'state', headerName: 'state' },
+    { field: 'state', headerName: 'state', width: 50 },
     { field: 'zipCode', headerName: 'Zip Code', width: 100 },
     { field: 'department', headerName: 'Department' },
   ];
