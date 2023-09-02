@@ -43,7 +43,7 @@ function Employees() {
       <h1>Current Employees</h1>
       <div id="employee-table">
         <DataGrid
-          rows={mockedEmployees}
+          rows={employees}
           columns={columns}
           initialState={{
             pagination: {
