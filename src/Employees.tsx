@@ -15,8 +15,8 @@ function Employees() {
     Date.parse(v1.toUTCString()) - Date.parse(v2.toUTCString());
 
   const columns: GridColDef[] = [
-    { field: 'firstName', headerName: 'First name', width: 120 },
-    { field: 'lastName', headerName: 'Last name', width: 120 },
+    { field: 'firstName', headerName: 'First name', width: 100 },
+    { field: 'lastName', headerName: 'Last name', width: 100 },
     {
       field: 'dateOfBirth', headerName: 'Date Of Birth', width: 100,
       type: 'date',
@@ -31,9 +31,10 @@ function Employees() {
       sortComparator: dateComparator,
       valueFormatter: (param) => param.value.toLocaleString().split(' ')[0],
     },
+    { field: 'street', headerName: 'Street', width: 150 },
     { field: 'city', headerName: 'City' },
-    { field: 'state', headerName: 'state', width: 50 },
-    { field: 'zipCode', headerName: 'Zip Code', width: 100 },
+    { field: 'state', headerName: 'State', width: 100 },
+    { field: 'zipCode', headerName: 'Zip Code', width: 80 },
     { field: 'department', headerName: 'Department' },
   ];
 
@@ -42,7 +43,7 @@ function Employees() {
       <h1>Current Employees</h1>
       <div id="employee-table">
         <DataGrid
-          rows={employees}
+          rows={mockedEmployees}
           columns={columns}
           initialState={{
             pagination: {
